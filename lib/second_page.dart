@@ -86,7 +86,7 @@ class _SecondPageState extends State<SecondPage> with RouteAware {
             const Center(
               child: Text('second page'),
             ),
-            RaisedButton(
+            ElevatedButton(
               child: const Text('Second page'),
               onPressed: () {
                 Navigator.pushNamed(context, thirdRoute);

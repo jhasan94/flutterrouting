@@ -10,8 +10,12 @@ void main() {
 NavigatorService<PageRoute> middleware = NavigatorService<PageRoute>(
   onPush: (route, previousRoute) {
     log('we have push event');
+
     ///if route is Y we should have some API call
   },
+  onPop: (route,previousRoute){
+    log('we have pop event');
+  }
 );
 
 class MyApp extends StatelessWidget {
@@ -38,22 +42,18 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>{
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Builder(
-      builder: (context) {
-        return Scaffold(
-            body: Center(
-          child: RaisedButton(
-            child: const Text('home page'),
-            onPressed: () {
-              Navigator.pushNamed(context, secondRoute);
-            },
-          )
-        ));
-      }
-    );
+    return Builder(builder: (context) {
+      return Scaffold(
+          body: Center(
+              child: ElevatedButton(
+        child: const Text('home page'),
+        onPressed: () {
+          Navigator.pushNamed(context, secondRoute);
+        },
+      )));
+    });
   }
-
 }

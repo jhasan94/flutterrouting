@@ -25,11 +25,14 @@ class NavigatorService<R extends Route<dynamic>> extends RouteObserver<R> {
       left: 0.0,
       child: Material(
         color: Colors.transparent,
-        child: Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width / 3,
-            decoration: const BoxDecoration(color: Colors.red),
-            child: const Icon(Icons.warning, color: Colors.purple)),
+        child: Opacity(
+          opacity: 0.3,
+          child: Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              decoration: const BoxDecoration(color: Colors.green),
+          ),
+        ),
       ),
     );
   });
@@ -54,7 +57,7 @@ class NavigatorService<R extends Route<dynamic>> extends RouteObserver<R> {
     if (onPush != null) {
       onPush!(route, previousRoute);
     }
-    if (identical(route.settings.name, thirdRoute)) {
+    if (identical(route.settings.name, secondRoute)) {
       print('did push route : $route');
       Future.delayed(Duration.zero, () {
         route.navigator?.overlay?.insert(overlayEntry);
@@ -71,24 +74,10 @@ class NavigatorService<R extends Route<dynamic>> extends RouteObserver<R> {
     _logget('{didPop} \n route: $route \n previousRoute: $previousRoute');
     _stack.remove(route);
     _logStack();
-    if (route.settings.name == "/thirdPage" && overlayEntry.mounted) {
+    if (route.settings.name == secondRoute && overlayEntry.mounted) {
       overlayEntry.remove();
     }
 
     super.didPop(route, previousRoute);
   }
-
-  // @override
-  // void didStartUserGesture(
-  //     Route<dynamic> route, Route<dynamic>? previousRoute) {
-  //   _logget(
-  //       '{didStartUserGesture} \n route: $route \n previousRoute: $previousRoute');
-  //   super.didStartUserGesture(route, previousRoute);
-  // }
-  //
-  // @override
-  // void didStopUserGesture() {
-  //   _logget('{didStopUserGesture}');
-  //   super.didStopUserGesture();
-  // }
 }
